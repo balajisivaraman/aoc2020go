@@ -17,7 +17,9 @@ func readLines(filepath string) []int {
 		num, _ := strconv.Atoi(line)
 		input = append(input, num)
 	}
-	return input
+	// below hack is needed because read lines apparently inserts
+	// a blank at the end
+	return input[:len(input)-1]
 }
 
 func main() {
@@ -26,6 +28,8 @@ func main() {
 	if day == "day01" {
 		input := readLines("input/day01.txt")
 		result = solutions.Day01Part1(input)
-		fmt.Printf("Day01, Part1 : %d", result)
+		fmt.Println("Day01, Part1 : ", result)
+		result = solutions.Day01Part2(input)
+		fmt.Println("Day01, Part2 : ", result)
 	}
 }
