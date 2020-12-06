@@ -16,14 +16,31 @@ func Day02Part1(input []string) int {
 	var count int
 	for _, line := range input {
 		passwordPolicy := getPasswordPolicy(line)
-		if isValid(passwordPolicy) {
+		if isValidAsPerOldPolicy(passwordPolicy) {
 			count++
 		}
 	}
 	return count
 }
 
-func isValid(passwordPolicy *PasswordPolicy) bool {
+func Day02Part2(input []string) int {
+	var count int
+	for _, line := range input {
+		passwordPolicy := getPasswordPolicy(line)
+		if isValidAsPerNewPolicy(passwordPolicy) {
+			count++
+		}
+	}
+	return count
+}
+
+func isValidAsPerNewPolicy(passwordPolicy *PasswordPolicy) bool {
+	characterAtFirstPosition := string(passwordPolicy.password[passwordPolicy.minOccurrences-1])
+	characterAtSecondPosition := string(passwordPolicy.password[passwordPolicy.maxOccurrences-1])
+	return (characterAtFirstPosition == passwordPolicy.characterThatMustOccur && characterAtSecondPosition != passwordPolicy.characterThatMustOccur) || (characterAtFirstPosition != passwordPolicy.characterThatMustOccur && characterAtSecondPosition == passwordPolicy.characterThatMustOccur)
+}
+
+func isValidAsPerOldPolicy(passwordPolicy *PasswordPolicy) bool {
 	occurrences := countChars(passwordPolicy.password, passwordPolicy.characterThatMustOccur)
 	return occurrences >= passwordPolicy.minOccurrences && occurrences <= passwordPolicy.maxOccurrences
 }

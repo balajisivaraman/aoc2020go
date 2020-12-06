@@ -12,3 +12,12 @@ func TestDay02Part1(t *testing.T) {
 		t.Errorf("Day02: Part 1(%s) = %d, want %d", input, actual, want)
 	}
 }
+
+func TestDay02Part2(t *testing.T) {
+	input := []string{"1-3 a: abcde", "1-3 b: cdefg", "2-9 c: ccccccccc"}
+	want := 1
+	actual := Day02Part2(input)
+	if !(actual == want) {
+		t.Errorf("Day02: Part 2(%s) = %d, want %d", input, actual, want)
+	}
+}
