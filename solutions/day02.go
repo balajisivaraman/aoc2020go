@@ -6,28 +6,25 @@ import (
 )
 
 type PasswordPolicy struct {
-	minOccurrences         int
-	maxOccurrences         int
+	firstNumber            int
+	secondNumber           int
 	characterThatMustOccur string
 	password               string
 }
 
 func Day02Part1(input []string) int {
-	var count int
-	for _, line := range input {
-		passwordPolicy := getPasswordPolicy(line)
-		if isValidAsPerOldPolicy(passwordPolicy) {
-			count++
-		}
-	}
-	return count
+	return countAsPerPolicy(input, isValidAsPerOldPolicy)
 }
 
 func Day02Part2(input []string) int {
+	return countAsPerPolicy(input, isValidAsPerNewPolicy)
+}
+
+func countAsPerPolicy(input []string, policy func(*PasswordPolicy) bool) int {
 	var count int
 	for _, line := range input {
 		passwordPolicy := getPasswordPolicy(line)
-		if isValidAsPerNewPolicy(passwordPolicy) {
+		if policy(passwordPolicy) {
 			count++
 		}
 	}
@@ -35,14 +32,16 @@ func Day02Part2(input []string) int {
 }
 
 func isValidAsPerNewPolicy(passwordPolicy *PasswordPolicy) bool {
-	characterAtFirstPosition := string(passwordPolicy.password[passwordPolicy.minOccurrences-1])
-	characterAtSecondPosition := string(passwordPolicy.password[passwordPolicy.maxOccurrences-1])
+	characterAtFirstPosition := string(passwordPolicy.password[passwordPolicy.firstNumber-1])
+	characterAtSecondPosition := string(passwordPolicy.password[passwordPolicy.secondNumber-1])
 	return (characterAtFirstPosition == passwordPolicy.characterThatMustOccur && characterAtSecondPosition != passwordPolicy.characterThatMustOccur) || (characterAtFirstPosition != passwordPolicy.characterThatMustOccur && characterAtSecondPosition == passwordPolicy.characterThatMustOccur)
 }
 
 func isValidAsPerOldPolicy(passwordPolicy *PasswordPolicy) bool {
 	occurrences := countChars(passwordPolicy.password, passwordPolicy.characterThatMustOccur)
-	return occurrences >= passwordPolicy.minOccurrences && occurrences <= passwordPolicy.maxOccurrences
+	minOccurrences := passwordPolicy.firstNumber
+	maxOccurrences := passwordPolicy.secondNumber
+	return occurrences >= minOccurrences && occurrences <= maxOccurrences
 }
 
 func getPasswordPolicy(str string) *PasswordPolicy {
@@ -54,8 +53,8 @@ func getPasswordPolicy(str string) *PasswordPolicy {
 	characterThatMustOccur := string(splitBySpaces[1][0])
 	password := splitBySpaces[2]
 	passwordPolicy := PasswordPolicy{
-		minOccurrences:         minOccurrences,
-		maxOccurrences:         maxOccurrences,
+		firstNumber:            minOccurrences,
+		secondNumber:           maxOccurrences,
 		characterThatMustOccur: characterThatMustOccur,
 		password:               password,
 	}
