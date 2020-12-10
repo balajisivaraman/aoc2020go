@@ -13,7 +13,7 @@ func (coord *Coordinate) moveDownBy(points int) {
 	coord.y = coord.y + points
 }
 
-func getVisitedCoordinates(endingYCoordinate int, slopesToTraverse *Coordinate) []Coordinate {
+func getVisitedCoordinates(endingYCoordinate int, slopeToTraverse *Coordinate) []Coordinate {
 	coord := Coordinate{
 		x: 0,
 		y: 0,
@@ -24,8 +24,8 @@ func getVisitedCoordinates(endingYCoordinate int, slopesToTraverse *Coordinate) 
 		if coord.y == endingYCoordinate {
 			break
 		}
-		coord.moveRightBy(slopesToTraverse.x)
-		coord.moveDownBy(slopesToTraverse.y)
+		coord.moveRightBy(slopeToTraverse.x)
+		coord.moveDownBy(slopeToTraverse.y)
 		result[index] = coord
 		index++
 	}
