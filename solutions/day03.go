@@ -5,14 +5,29 @@ type Coordinate struct {
 	y int
 }
 
-func getVisitedCoordinates(endingYCoordinate int) []Coordinate {
+func (coord *Coordinate) moveRightBy(points int) {
+	coord.x = coord.x + points
+}
+
+func (coord *Coordinate) moveDownBy(points int) {
+	coord.y = coord.y + points
+}
+
+func getVisitedCoordinates(endingYCoordinate int, slopesToTraverse *Coordinate) []Coordinate {
+	coord := Coordinate{
+		x: 0,
+		y: 0,
+	}
 	var result []Coordinate = make([]Coordinate, endingYCoordinate)
-	for i := 1; i <= endingYCoordinate; i++ {
-		coord := Coordinate{
-			x: i * 3,
-			y: i,
+	index := 0
+	for {
+		if coord.y == endingYCoordinate {
+			break
 		}
-		result[i-1] = coord
+		coord.moveRightBy(slopesToTraverse.x)
+		coord.moveDownBy(slopesToTraverse.y)
+		result[index] = coord
+		index++
 	}
 	return result
 }
@@ -27,9 +42,9 @@ func isTree(charAtSquare string) bool {
 	return charAtSquare == "#"
 }
 
-func Day03Part1(input []string) int {
+func traverseSlopeWithTreeCount(input []string, slopeToTraverse *Coordinate) int {
 	endingYCoordinate := len(input) - 1
-	visitedCoordinates := getVisitedCoordinates(endingYCoordinate)
+	visitedCoordinates := getVisitedCoordinates(endingYCoordinate, slopeToTraverse)
 	treesSeen := 0
 	for _, coord := range visitedCoordinates {
 		characterAt := getCharAt(input[coord.y], coord.x)
@@ -38,4 +53,42 @@ func Day03Part1(input []string) int {
 		}
 	}
 	return treesSeen
+}
+
+func Day03Part1(input []string) int {
+	slopeToTraverse := Coordinate{
+		x: 3,
+		y: 1,
+	}
+	return traverseSlopeWithTreeCount(input, &slopeToTraverse)
+}
+
+func Day03Part2(input []string) int {
+	slopesToTraverse := []Coordinate{
+		Coordinate{
+			x: 1,
+			y: 1,
+		},
+		Coordinate{
+			x: 3,
+			y: 1,
+		},
+		Coordinate{
+			x: 5,
+			y: 1,
+		},
+		Coordinate{
+			x: 7,
+			y: 1,
+		},
+		Coordinate{
+			x: 1,
+			y: 2,
+		},
+	}
+	result := 1
+	for _, slopeToTraverse := range slopesToTraverse {
+		result *= traverseSlopeWithTreeCount(input, &slopeToTraverse)
+	}
+	return result
 }
