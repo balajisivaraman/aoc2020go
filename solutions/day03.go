@@ -65,23 +65,23 @@ func Day03Part1(input []string) int {
 
 func Day03Part2(input []string) int {
 	slopesToTraverse := []Coordinate{
-		Coordinate{
+		{
 			x: 1,
 			y: 1,
 		},
-		Coordinate{
+		{
 			x: 3,
 			y: 1,
 		},
-		Coordinate{
+		{
 			x: 5,
 			y: 1,
 		},
-		Coordinate{
+		{
 			x: 7,
 			y: 1,
 		},
-		Coordinate{
+		{
 			x: 1,
 			y: 2,
 		},
