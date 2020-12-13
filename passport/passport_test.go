@@ -1,4 +1,4 @@
-package solutions
+package passport
 
 import (
 	"testing"
@@ -6,14 +6,7 @@ import (
 
 func TestBirthYearLessThanFourDigitsInvalid(t *testing.T) {
 	input := Passport{
-		birthYear:      "",
-		issueYear:      "",
-		expirationYear: "",
-		height:         "",
-		hairColour:     "",
-		eyeColour:      "",
-		passportId:     "",
-		countryId:      "",
+		BirthYear: "",
 	}
 	actual := input.isBirthYearValid()
 	if actual {
@@ -23,7 +16,7 @@ func TestBirthYearLessThanFourDigitsInvalid(t *testing.T) {
 
 func TestBirthYearNotBetween1920And2002Invalid(t *testing.T) {
 	input := Passport{
-		birthYear: "2003",
+		BirthYear: "2003",
 	}
 	actual := input.isBirthYearValid()
 	if actual {
@@ -33,7 +26,7 @@ func TestBirthYearNotBetween1920And2002Invalid(t *testing.T) {
 
 func TestBirthYearBetween1920And2002Valid(t *testing.T) {
 	input := Passport{
-		birthYear: "2002",
+		BirthYear: "2002",
 	}
 	actual := input.isBirthYearValid()
 	if !(actual) {
@@ -43,7 +36,7 @@ func TestBirthYearBetween1920And2002Valid(t *testing.T) {
 
 func TestIssueYearLessThanFourDigitsInvalid(t *testing.T) {
 	input := Passport{
-		issueYear: "200",
+		IssueYear: "200",
 	}
 	actual := input.isIssueYearValid()
 	if actual {
@@ -53,7 +46,7 @@ func TestIssueYearLessThanFourDigitsInvalid(t *testing.T) {
 
 func TestIssueYearNotBetween1920And2002Invalid(t *testing.T) {
 	input := Passport{
-		issueYear: "2009",
+		IssueYear: "2009",
 	}
 	actual := input.isIssueYearValid()
 	if actual {
@@ -63,7 +56,7 @@ func TestIssueYearNotBetween1920And2002Invalid(t *testing.T) {
 
 func TestIssueYearBetween1920And2002Valid(t *testing.T) {
 	input := Passport{
-		issueYear: "2010",
+		IssueYear: "2010",
 	}
 	actual := input.isIssueYearValid()
 	if !(actual) {
@@ -73,7 +66,7 @@ func TestIssueYearBetween1920And2002Valid(t *testing.T) {
 
 func TestExpirationYearLessThanFourDigitsInvalid(t *testing.T) {
 	input := Passport{
-		expirationYear: "200",
+		ExpirationYear: "200",
 	}
 	actual := input.isExpirationYearValid()
 	if actual {
@@ -83,7 +76,7 @@ func TestExpirationYearLessThanFourDigitsInvalid(t *testing.T) {
 
 func TestExpirationYearNotBetween1920And2002Invalid(t *testing.T) {
 	input := Passport{
-		expirationYear: "2019",
+		ExpirationYear: "2019",
 	}
 	actual := input.isExpirationYearValid()
 	if actual {
@@ -93,7 +86,7 @@ func TestExpirationYearNotBetween1920And2002Invalid(t *testing.T) {
 
 func TestExpirationYearBetween1920And2002Valid(t *testing.T) {
 	input := Passport{
-		expirationYear: "2020",
+		ExpirationYear: "2020",
 	}
 	actual := input.isExpirationYearValid()
 	if !(actual) {
@@ -103,7 +96,7 @@ func TestExpirationYearBetween1920And2002Valid(t *testing.T) {
 
 func TestHeightWithoutCmOrInInvalid(t *testing.T) {
 	input := Passport{
-		height: "190",
+		Height: "190",
 	}
 	actual := input.isHeightValid()
 	if actual {
@@ -113,7 +106,7 @@ func TestHeightWithoutCmOrInInvalid(t *testing.T) {
 
 func TestHeightIncorrectCentimetersInvalid(t *testing.T) {
 	input := Passport{
-		height: "149cm",
+		Height: "149cm",
 	}
 	actual := input.isHeightValid()
 	if actual {
@@ -123,7 +116,7 @@ func TestHeightIncorrectCentimetersInvalid(t *testing.T) {
 
 func TestHeightCorrectCentimetersValid(t *testing.T) {
 	input := Passport{
-		height: "150cm",
+		Height: "150cm",
 	}
 	actual := input.isHeightValid()
 	if !(actual) {
@@ -133,7 +126,7 @@ func TestHeightCorrectCentimetersValid(t *testing.T) {
 
 func TestHeightIncorrectInchesInvalid(t *testing.T) {
 	input := Passport{
-		height: "190in",
+		Height: "190in",
 	}
 	actual := input.isHeightValid()
 	if actual {
@@ -143,7 +136,7 @@ func TestHeightIncorrectInchesInvalid(t *testing.T) {
 
 func TestHeightCorrectInchesValid(t *testing.T) {
 	input := Passport{
-		height: "59in",
+		Height: "59in",
 	}
 	actual := input.isHeightValid()
 	if !(actual) {
@@ -153,7 +146,7 @@ func TestHeightCorrectInchesValid(t *testing.T) {
 
 func TestHairColourWithoutHashInvalid(t *testing.T) {
 	input := Passport{
-		hairColour: "123abc",
+		HairColour: "123abc",
 	}
 	actual := input.isHairColourValid()
 	if actual {
@@ -163,7 +156,7 @@ func TestHairColourWithoutHashInvalid(t *testing.T) {
 
 func TestHairColourWithHashIncorrectFormatInvalid(t *testing.T) {
 	input := Passport{
-		hairColour: "#123abz",
+		HairColour: "#123abz",
 	}
 	actual := input.isHairColourValid()
 	if actual {
@@ -173,7 +166,7 @@ func TestHairColourWithHashIncorrectFormatInvalid(t *testing.T) {
 
 func TestHairColourWithHashCorrectFormatValid(t *testing.T) {
 	input := Passport{
-		hairColour: "#123abc",
+		HairColour: "#123abc",
 	}
 	actual := input.isHairColourValid()
 	if !(actual) {
@@ -183,7 +176,7 @@ func TestHairColourWithHashCorrectFormatValid(t *testing.T) {
 
 func TestEyeColourNotWithinSetInvalid(t *testing.T) {
 	input := Passport{
-		eyeColour: "amc",
+		EyeColour: "amc",
 	}
 	actual := input.isEyeColourValid()
 	if actual {
@@ -193,7 +186,7 @@ func TestEyeColourNotWithinSetInvalid(t *testing.T) {
 
 func TestEyeColourWithinSetValid(t *testing.T) {
 	input := Passport{
-		eyeColour: "amb",
+		EyeColour: "amb",
 	}
 	actual := input.isEyeColourValid()
 	if !(actual) {
@@ -203,7 +196,7 @@ func TestEyeColourWithinSetValid(t *testing.T) {
 
 func TestPassportIdInvalid(t *testing.T) {
 	input := Passport{
-		passportId: "0123456789",
+		PassportId: "0123456789",
 	}
 	actual := input.isPassportIdValid()
 	if actual {
@@ -213,7 +206,7 @@ func TestPassportIdInvalid(t *testing.T) {
 
 func TestPassportIdValid(t *testing.T) {
 	input := Passport{
-		passportId: "000000001",
+		PassportId: "000000001",
 	}
 	actual := input.isPassportIdValid()
 	if !(actual) {
